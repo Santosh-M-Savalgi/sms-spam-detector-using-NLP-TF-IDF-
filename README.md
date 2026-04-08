@@ -1,25 +1,40 @@
-# 📩 SMS Spam Detection using TF-IDF + Naive Bayes
+# 📩 SMS Spam Detection using NLP (TF-IDF + Naive Bayes)
 
 ## 🚀 Overview
 
-This project implements an SMS spam classifier using Natural Language Processing (NLP) techniques and a Naive Bayes model.
+This project builds a machine learning model to classify SMS messages as **Spam or Ham (Not Spam)** using Natural Language Processing (NLP) techniques.
 
-## 🧠 Pipeline
+It uses **TF-IDF vectorization** and a **Multinomial Naive Bayes classifier**, a strong baseline for text classification tasks.
 
-1. Text Cleaning (regex, lowercase)
-2. Stopword Removal (NLTK)
-3. Lemmatization
-4. TF-IDF Vectorization
-5. Multinomial Naive Bayes Classification
+---
+
+## 🧠 Project Pipeline
+
+1. **Data Cleaning**
+
+   * Lowercasing
+   * Removing special characters
+2. **Text Preprocessing**
+
+   * Stopword removal (NLTK)
+   * Lemmatization
+3. **Feature Extraction**
+
+   * TF-IDF Vectorization
+4. **Model Training**
+
+   * Multinomial Naive Bayes
+5. **Evaluation**
+
+   * Accuracy, Precision, Recall, F1-score
+
+---
 
 ## 📂 Dataset
 
-* Combined SMS dataset (spam/ham classification)
+* SMS Spam dataset (spam/ham classification)
 
-## 📊 Visualizations
-
-* Spam vs Ham distribution (Pie Chart)
-* WordCloud for spam messages
+---
 
 ## ⚙️ Installation
 
@@ -27,29 +42,56 @@ This project implements an SMS spam classifier using Natural Language Processing
 pip install -r requirements.txt
 ```
 
+---
+
 ## ▶️ Run the Project
 
 ```bash
 jupyter notebook notebook/tfidf_sms_spam.ipynb
 ```
 
-## 📈 Results
+---
 
-* Accuracy: ~97%
-* Precision: High
-* Recall: Needs improvement (class imbalance)
+## 📊 Model Performance
+
+* **Accuracy:** ~97%
+* **Precision:** High
+* **Recall:** Needs improvement (due to class imbalance)
+
+---
+
+## 🧪 Sample Prediction
+
+```python
+msg = ["Congratulations! You've won a free ticket"]
+print(model.predict(vectorizer.transform(msg)))
+```
+
+---
 
 ## ⚠️ Notes
 
-* Make sure dataset is inside `data/` folder
+* Ensure dataset is placed inside the `data/` folder
 * First run may download NLTK resources
 
-## 🔮 Improvements
+---
+
+## 🔮 Future Improvements
 
 * Improve recall using SMOTE or class balancing
-* Try Logistic Regression / SVM
-* Save model using pickle for deployment
+* Try advanced models (Logistic Regression, SVM)
+* Deploy as a web app using Streamlit
+
+---
+
+## 🌍 Real-World Applications
+
+* SMS spam filtering
+* Email classification
+* Fraud and phishing detection
+
+---
 
 ## 👨‍💻 Author
 
-Santosh
+Santosh Savalgi
