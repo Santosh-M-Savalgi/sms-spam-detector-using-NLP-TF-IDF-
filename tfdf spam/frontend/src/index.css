@@ -1,16 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 :root {
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'VT323', monospace, 'Courier New', Courier;
   line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #0d0f1a;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  color: #00ffcc;
+  background-color: #000;
 }
 
 body {
@@ -19,13 +14,17 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: radial-gradient(circle at top left, #290a3a 0%, #0d0f1a 50%, #0a1128 100%);
-  background-size: cover;
-  background-attachment: fixed;
+  /* Cyber Y2K Grid Background */
+  background-color: #0d001a;
+  background-image: 
+    linear-gradient(rgba(0, 255, 204, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 204, 0.2) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: center center;
 }
 
 #root {
-  max-width: 1280px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -38,25 +37,31 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  animation: fadeIn 0.8s ease-out;
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 24px;
-  padding: 3rem;
+  background: rgba(10, 0, 20, 0.8);
+  border: 3px solid #ff00ff;
+  border-radius: 0px; 
+  padding: 2rem;
   width: 100%;
-  max-width: 600px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 8px 8px 0px #00ffcc;
+  position: relative;
 }
 
-.glass-panel:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+/* Metallic Y2K Top Bar */
+.glass-panel::before {
+  content: "C:\\NEURAL_GUARD.EXE";
+  display: block;
+  background: linear-gradient(180deg, #d3d3d3, #8c8c8c);
+  color: #000;
+  padding: 0.2rem 1rem;
+  text-align: left;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  border-bottom: 2px solid #ff00ff;
+  margin: -2rem -2rem 2rem -2rem; /* Pull flush to edges */
 }
 
 .header {
@@ -64,147 +69,96 @@ body {
 }
 
 .title {
-  font-size: 2.5rem;
-  font-weight: 800;
+  font-size: 3.5rem;
   margin: 0;
-  background: linear-gradient(135deg, #a78bfa 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  color: #ff00ff;
+  text-shadow: 2px 2px 0px #00ffcc, -2px -2px 0px #ffff00;
+  letter-spacing: 4px;
 }
 
-.subtitle {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1rem;
-  margin-top: 0.5rem;
+.marquee-container {
+  border-top: 1px dotted #00ffcc;
+  border-bottom: 1px dotted #00ffcc;
+  padding: 5px 0;
+  margin-top: 15px;
+  color: #ffff00;
+  background: #000;
 }
 
 .input-container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .message-textarea {
   width: 100%;
-  height: 150px;
-  padding: 1.5rem;
-  border-radius: 16px;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
+  height: 120px;
+  padding: 1rem;
+  background: #000;
+  border: 2px inset #d3d3d3;
+  color: #00ffcc;
   font-family: inherit;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   resize: none;
-  transition: all 0.2s ease;
   box-sizing: border-box;
 }
 
 .message-textarea:focus {
   outline: none;
-  background: rgba(0, 0, 0, 0.3);
-  border-color: #8b5cf6;
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
-}
-
-.message-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  border-color: #ff00ff;
 }
 
 .analyze-btn {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+  background: linear-gradient(180deg, #ff00ff, #cc00cc);
+  color: #fff;
+  border: 2px outset #ff66ff;
+  padding: 0.5rem 2rem;
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: bold;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  box-shadow: 3px 3px 0px #00ffcc;
 }
 
 .analyze-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+  background: linear-gradient(180deg, #cc00cc, #990099);
+  color: #ffff00;
 }
 
 .analyze-btn:active {
-  transform: translateY(0);
-}
-
-.analyze-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
+  border: 2px inset #ff66ff;
+  box-shadow: 1px 1px 0px #00ffcc;
+  transform: translate(2px, 2px);
 }
 
 .results-banner {
   margin-top: 2rem;
-  padding: 1.5rem;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 1rem;
+  border: 3px dashed;
+  animation: blink 2s infinite;
 }
 
 .results-banner.spam {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
+  border-color: #ff0000;
+  color: #ff0000;
+  background: #2b0000;
 }
 
 .results-banner.ham {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #6ee7b7;
+  border-color: #00ffcc;
+  color: #00ffcc;
+  background: #002b22;
 }
 
 .results-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: 2rem;
   margin: 0;
+  text-transform: uppercase;
 }
 
-.results-desc {
-  opacity: 0.8;
-  font-size: 0.95rem;
-  margin: 0;
-}
-
-.loader {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { 
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to { 
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
