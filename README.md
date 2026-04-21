@@ -99,4 +99,4 @@ npm run dev
 
 ## 👨‍💻 Author
 
-Santosh Savalgi
+Santosh M Savalgi
