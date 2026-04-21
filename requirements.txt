@@ -4,3 +4,7 @@ scikit-learn
 nltk
 matplotlib
 wordcloud
+streamlit
+fastapi[standard]
+uvicorn
+pydantic
