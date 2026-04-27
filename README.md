@@ -1,102 +1,130 @@
-# 📩 SMS Spam Detection using NLP (TF-IDF + Naive Bayes)
+#  SMS Spam & Fraud URL Detection System
 
-## 🚀 Overview
+## Overview
 
-This project builds a machine learning model to classify SMS messages as **Spam or Ham (Not Spam)** using Natural Language Processing (NLP) techniques.
+This is a  machine learning-based system designed to classify SMS messages as **Spam** or **Ham (Not Spam)** using Natural Language Processing (NLP). 
 
-It uses **TF-IDF vectorization** and a **Complement Naive Bayes classifier**, which provides excellent performance and recall even on extremely imbalanced text classification tasks!
+Going beyond standard text classification, this system features a powerful **Fraud URL Detection Module** that extracts and analyzes URLs within messages to identify potentially malicious or phishing links.
 
----
-
-## 🧠 Project Pipeline
-
-1. **Data Cleaning**
-   * Lowercasing
-   * Removing special characters
-2. **Text Preprocessing**
-   * Stopword removal (NLTK)
-   * Lemmatization
-3. **Feature Extraction**
-   * TF-IDF Vectorization
-4. **Model Training**
-   * Complement Naive Bayes (improving upon MultinomialNB for imbalanced data)
-5. **Evaluation**
-   * Accuracy, Precision, Recall, F1-score
+The system combines:
+- **NLP-based spam classification** (Complement Naive Bayes)
+- **URL-based fraud detection** using multi-layer analysis (Machine Learning, Network Analysis, IP Geolocation)
 
 ---
 
-## 📂 Dataset
+## Key Features
 
-* SMS Spam dataset (spam/ham classification)
-* **Note:** Ensure dataset is placed inside the `tfdf spam/data/` folder.
+### 1.  SMS Spam Detection (NLP)
+- Advanced text preprocessing and cleaning
+- TF-IDF vectorization
+- Complement Naive Bayes classifier (optimized for imbalanced datasets)
+
+### 2. Fraud URL Detection
+- Automatic URL extraction using regex
+- **Multi-layer analysis pipeline:**
+  - **Machine Learning Classification:** Random Forest model trained on malicious URL patterns.
+  - **Network Analysis:** DNS resolution, redirection tracking, and SSL certificate checks.
+  - **IP Analysis:** IP resolution and geolocation tracking.
+- Provides actionable risk levels: **Low, Medium, High** with detailed warning indicators.
 
 ---
 
-## ⚙️ Installation
+## Project Architecture
 
+### URL Detection Module Structure
+```text
+url_detection/
+├── feature_extraction.py   # Extracts URL-based features
+├── ml_model.py             # Random Forest classifier
+├── network_analysis.py     # DNS, redirects, SSL checks
+├── ip_analysis.py          # IP resolution and geolocation
+└── analyzer.py             # Combines all checks and outputs risk score
+```
+
+### Full-Stack Integration
+- **Backend:** FastAPI application providing a high-performance REST endpoint (`/api/predict`).
+- **Frontend:** Modern, responsive React application displaying spam classification, URL risk cards, and confidence scores.
+
+---
+
+##  Getting Started
+
+### Prerequisites
+- Python 3.8+
+- Node.js & npm (for the React frontend)
+
+### 1. Clone & Setup
+Ensure you have the required dataset `combined_dataset.csv` inside `tfdf spam/data/`.
+
+### 2. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
-*(First run may download NLTK resources automatically in the background).*
 
 ---
 
-## ▶️ How to Run
+##  How to Run
 
-You have multiple ways to interact with this project!
+NeuralGuard offers three ways to run and interact with the system:
 
-### Option 1: Jupyter Notebook (Analysis & Training)
+### Option 1: Jupyter Notebook (For Data Scientists)
+Run the complete training and evaluation pipeline interactively.
 ```bash
 jupyter notebook "tfdf spam/tfidfforsmsspam.ipynb"
 ```
 
-### Option 2: Streamlit Web App
-A lightweight, fast, beautiful web app in pure Python.
+### Option 2: Streamlit Application (Quick UI)
+Launch a lightweight, Python-only web interface.
 ```bash
 cd "tfdf spam"
 streamlit run app.py
 ```
 
-### Option 3: Full-Stack React + FastAPI App
-A premium, glassmorphic React frontend communicating with a REST API backend.
+### Option 3: Full-Stack Application (Production-Ready)
+Run the FastAPI backend and React frontend.
 
-**Terminal 1 (Backend):**
+**Terminal 1: Start the Backend**
 ```bash
 cd "tfdf spam"
 fastapi run api.py --port 8000
 ```
-**Terminal 2 (Frontend):**
+
+**Terminal 2: Start the Frontend**
 ```bash
 cd "tfdf spam/frontend"
 npm install
 npm run dev
 ```
+*Access the web interface at `http://localhost:5173`.*
 
 ---
 
-## 📊 Model Performance
+## Model Performance
 
-* **Accuracy:** ~97%
-* **Precision:** High
-* **Recall:** Enhanced significantly compared to baseline through the use of `ComplementNB` and balanced `stratify=y` test splits!
-
----
-
-## 🔮 Future Improvements
-
-* Try advanced deep models (Transformers, BERT)
-* Add database for capturing flagged SMS instances over time
+- **Accuracy:** ~97%
+- **Precision:** High precision to minimize false positives (important for Ham messages).
+- **Recall:** Significantly improved using the Complement Naive Bayes algorithm.
+- **Robustness:** Effectively handles imbalanced datasets.
 
 ---
 
-## 🌍 Real-World Applications
+##  Technology Stack
 
-* SMS spam filtering
-* Email classification
-* Fraud and phishing detection
+- **Machine Learning & NLP:** `scikit-learn`, `nltk`, `pandas`, `numpy`
+- **Backend API:** `FastAPI`, `uvicorn`, `pydantic`
+- **Web Interfaces:** `Streamlit`, `React` (Vite)
+- **Networking:** `requests`
 
 ---
 
-## 👨‍💻 Author
+##  Future Improvements
 
-Santosh M Savalgi
+- Integration with external threat intelligence APIs (e.g., VirusTotal, AbuseIPDB).
+- Implementation of deep learning models (BERT, Transformers) for complex context understanding.
+- Persistent storage (database) for flagging and reviewing messages.
+- Browser extension for real-time, on-the-fly URL detection.
+
+---
+
+##  Author
+**Santosh M Savalgi**
