@@ -6,6 +6,7 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import ComplementNB
 from fastapi import FastAPI
+from url_detection.analyzer import analyze_url
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from contextlib import asynccontextmanager
@@ -93,4 +94,16 @@ async def predict_spam(request: MessageRequest):
     prediction = model.predict(msg_vec)[0]
     result = "spam" if prediction == 1 else "ham"
     
-    return {"prediction": result}
+    # URL extraction and Analysis
+    url_pattern = re.compile(r'https?://[^\s]+')
+    urls_found = url_pattern.findall(request.message)
+    
+    url_analysis_results = []
+    for url in urls_found:
+        url_analysis_results.append(analyze_url(url))
+    
+    response = {"prediction": result}
+    if url_analysis_results:
+        response["url_analysis"] = url_analysis_results
+    
+    return response

@@ -162,3 +162,79 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.7; }
 }
+
+.url-analysis-container {
+  margin-top: 2rem;
+  text-align: left;
+  border-top: 2px dashed #ff00ff;
+  padding-top: 1rem;
+}
+
+.url-title {
+  color: #ffff00;
+  margin-bottom: 1rem;
+}
+
+.url-card {
+  border: 1px solid #00ffcc;
+  background: rgba(0, 255, 204, 0.1);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.url-card.high {
+  border-color: #ff0000;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.url-card.medium {
+  border-color: #ffaa00;
+  background: rgba(255, 170, 0, 0.1);
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-weight: bold;
+  background: #00ffcc;
+  color: #000;
+}
+
+.badge.high {
+  background: #ff0000;
+  color: #fff;
+}
+
+.badge.medium {
+  background: #ffaa00;
+  color: #000;
+}
+
+.badge.low {
+  background: #00ffcc;
+  color: #000;
+}
+
+.warnings {
+  margin-top: 0.5rem;
+  color: #ffaa00;
+}
+
+.warnings ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.url-text {
+  word-break: break-all;
+  color: #ff00ff;
+}
+
+.url-header {
+  margin-bottom: 0.5rem;
+}
+
+.url-meta span {
+  margin-right: 1rem;
+}

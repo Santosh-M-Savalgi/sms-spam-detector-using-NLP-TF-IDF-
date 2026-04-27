@@ -5,13 +5,16 @@ function App() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [urlAnalysis, setUrlAnalysis] = useState(null);
   const [error, setError] = useState(null);
 
   const handleAnalyze = async () => {
     if (!message.trim()) return;
 
     setLoading(true);
+    setLoading(true);
     setResult(null);
+    setUrlAnalysis(null);
     setError(null);
 
     try {
@@ -28,7 +31,10 @@ function App() {
       }
 
       const data = await response.json();
-      setResult(data.prediction); 
+      setResult(data.prediction);
+      if (data.url_analysis) {
+        setUrlAnalysis(data.url_analysis);
+      }
     } catch (err) {
       console.error(err);
       setError('FATAL ERROR: BACKEND CONNECTION LOST. CHECK PORT 8000.');
@@ -59,9 +65,9 @@ function App() {
             disabled={loading}
           />
 
-          <button 
-            className="analyze-btn" 
-            onClick={handleAnalyze} 
+          <button
+            className="analyze-btn"
+            onClick={handleAnalyze}
             disabled={!message.trim() || loading}
           >
             {loading ? 'PROCESSING...' : 'EXECUTE SCAN'}
@@ -80,10 +86,35 @@ function App() {
               {result === 'spam' ? '!! THREAT DETECTED !!' : '// MESSAGE VERIFIED SAFE //'}
             </h2>
             <p className="results-desc">
-              {result === 'spam' 
-                ? 'SCAN RESULTS: MALICIOUS PATTERNS FOUND IN TEXT.' 
+              {result === 'spam'
+                ? 'SCAN RESULTS: MALICIOUS PATTERNS FOUND IN TEXT.'
                 : 'SCAN RESULTS: CLEAN. NO ANOMALIES DETECTED.'}
             </p>
+          </div>
+        )}
+
+        {urlAnalysis && (
+          <div className="url-analysis-container">
+            <h3 className="url-title">🌐 URL RISK ANALYSIS</h3>
+            {urlAnalysis.map((analysis, idx) => (
+              <div key={idx} className={`url-card ${analysis.risk_level.toLowerCase()}`}>
+                <div className="url-header">
+                  <strong>URL:</strong> <span className="url-text">{analysis.url}</span>
+                </div>
+                <div className="url-meta">
+                  <span><strong>Risk Level:</strong> <span className={`badge ${analysis.risk_level.toLowerCase()}`}>{analysis.risk_level}</span></span>
+                  <span><strong>Confidence:</strong> {(analysis.confidence * 100).toFixed(0)}%</span>
+                </div>
+                {analysis.warnings && analysis.warnings.length > 0 && (
+                  <div className="warnings">
+                    <strong>Warnings:</strong>
+                    <ul>
+                      {analysis.warnings.map((w, i) => <li key={i}>{w}</li>)}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         )}
       </div>

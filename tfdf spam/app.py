@@ -6,6 +6,7 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import ComplementNB
+from url_detection.analyzer import analyze_url
 
 # Download NLTK data needed for preprocessing
 nltk.download('stopwords', quiet=True)
@@ -100,6 +101,10 @@ if st.button("Detect Spam 🔍", use_container_width=True):
         # Predict
         prediction = model.predict(msg_vec)[0]
         
+        # URL extraction
+        url_pattern = re.compile(r'https?://[^\s]+')
+        urls_found = url_pattern.findall(user_input)
+        
         # Display Results
         st.markdown("---")
         if prediction == 1:
@@ -108,3 +113,22 @@ if st.button("Detect Spam 🔍", use_container_width=True):
         else:
             st.success("✅ **RESULT: HAM (Safe)**")
             st.markdown("This message appears to be safe and legitimate.")
+            
+        if urls_found:
+            st.markdown("### 🌐 URL Risk Analysis")
+            for url in urls_found:
+                with st.spinner(f"Analyzing {url}..."):
+                    analysis = analyze_url(url)
+                
+                risk = analysis['risk_level']
+                if risk == "High":
+                    st.error(f"**{url}** - Risk Level: **High** 🚨")
+                elif risk == "Medium":
+                    st.warning(f"**{url}** - Risk Level: **Medium** ⚠️")
+                else:
+                    st.success(f"**{url}** - Risk Level: **Low** ✅")
+                    
+                if analysis['warnings']:
+                    st.markdown("**Warnings:**")
+                    for w in analysis['warnings']:
+                        st.markdown(f"- {w}")
