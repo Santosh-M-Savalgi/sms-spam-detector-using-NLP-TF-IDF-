@@ -20,7 +20,7 @@ def analyze_url(url):
     elif confidence >= 0.3 and len(all_warnings) > 0:
         risk_level = "Medium"
     else:
-        risk_level = "Low"
+        risk_level = "Safe"
         
     return {
         "url": url,

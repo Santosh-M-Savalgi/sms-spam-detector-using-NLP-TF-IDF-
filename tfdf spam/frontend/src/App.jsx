@@ -80,7 +80,7 @@ function App() {
           </div>
         )}
 
-        {result && (
+        {result && result !== 'url_only' && (
           <div className={`results-banner ${result}`}>
             <h2 className="results-title">
               {result === 'spam' ? '!! THREAT DETECTED !!' : '// MESSAGE VERIFIED SAFE //'}
@@ -90,6 +90,13 @@ function App() {
                 ? 'SCAN RESULTS: MALICIOUS PATTERNS FOUND IN TEXT.'
                 : 'SCAN RESULTS: CLEAN. NO ANOMALIES DETECTED.'}
             </p>
+          </div>
+        )}
+
+        {result === 'url_only' && (
+          <div className="results-banner info" style={{ borderColor: '#00ccff', color: '#00ccff', background: '#001a2b' }}>
+            <h2 className="results-title">// URL SCAN MODE //</h2>
+            <p className="results-desc">DIRECT URL INPUT DETECTED. BYPASSING TEXT ANALYSIS.</p>
           </div>
         )}
 

@@ -25,7 +25,7 @@ The system combines:
   - **Machine Learning Classification:** Random Forest model trained on malicious URL patterns.
   - **Network Analysis:** DNS resolution, redirection tracking, and SSL certificate checks.
   - **IP Analysis:** IP resolution and geolocation tracking.
-- Provides actionable risk levels: **Low, Medium, High** with detailed warning indicators.
+- Provides actionable risk levels: **Safe, Medium, High** with detailed warning indicators.
 
 ---
 

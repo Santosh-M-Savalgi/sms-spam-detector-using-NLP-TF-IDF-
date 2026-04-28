@@ -88,21 +88,29 @@ def preprocess(text, stop_words, lemmatizer):
 async def predict_spam(request: MessageRequest):
     global vectorizer, model, stop_words, lemmatizer
     
-    msg_clean = preprocess(request.message, stop_words, lemmatizer)
-    msg_vec = vectorizer.transform([msg_clean])
-    
-    prediction = model.predict(msg_vec)[0]
-    result = "spam" if prediction == 1 else "ham"
-    
     # URL extraction and Analysis
     url_pattern = re.compile(r'https?://[^\s]+')
     urls_found = url_pattern.findall(request.message)
+    
+    # Check if input is ONLY URLs
+    message_without_urls = url_pattern.sub('', request.message).strip()
+    is_only_url = len(message_without_urls) == 0 and len(urls_found) > 0
+    
+    response = {}
+    
+    if is_only_url:
+        response["prediction"] = "url_only"
+    else:
+        msg_clean = preprocess(request.message, stop_words, lemmatizer)
+        msg_vec = vectorizer.transform([msg_clean])
+        prediction = model.predict(msg_vec)[0]
+        result = "spam" if prediction == 1 else "ham"
+        response["prediction"] = result
     
     url_analysis_results = []
     for url in urls_found:
         url_analysis_results.append(analyze_url(url))
     
-    response = {"prediction": result}
     if url_analysis_results:
         response["url_analysis"] = url_analysis_results
     

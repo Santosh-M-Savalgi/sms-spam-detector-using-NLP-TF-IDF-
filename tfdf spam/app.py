@@ -94,25 +94,33 @@ if st.button("Detect Spam 🔍", use_container_width=True):
     if user_input.strip() == "":
         st.warning("⚠️ Please enter a message to analyze.")
     else:
-        # Preprocess the message
-        msg_clean = preprocess(user_input, stop_words, lemmatizer)
-        msg_vec = vectorizer.transform([msg_clean])
-        
-        # Predict
-        prediction = model.predict(msg_vec)[0]
-        
         # URL extraction
         url_pattern = re.compile(r'https?://[^\s]+')
         urls_found = url_pattern.findall(user_input)
         
+        # Check if input is ONLY URLs
+        message_without_urls = url_pattern.sub('', user_input).strip()
+        is_only_url = len(message_without_urls) == 0 and len(urls_found) > 0
+
         # Display Results
         st.markdown("---")
-        if prediction == 1:
-            st.error("🚨 **RESULT: SPAM**")
-            st.markdown("This message exhibits patterns commonly found in malicious or unsolicited messages.")
+        
+        if is_only_url:
+            st.info("ℹ️ **URL scan mode active. Bypassing SMS text analysis.**")
         else:
-            st.success("✅ **RESULT: HAM (Safe)**")
-            st.markdown("This message appears to be safe and legitimate.")
+            # Preprocess the message
+            msg_clean = preprocess(user_input, stop_words, lemmatizer)
+            msg_vec = vectorizer.transform([msg_clean])
+            
+            # Predict
+            prediction = model.predict(msg_vec)[0]
+            
+            if prediction == 1:
+                st.error("🚨 **RESULT: SPAM**")
+                st.markdown("This message exhibits patterns commonly found in malicious or unsolicited messages.")
+            else:
+                st.success("✅ **RESULT: HAM (Safe)**")
+                st.markdown("This message appears to be safe and legitimate.")
             
         if urls_found:
             st.markdown("### 🌐 URL Risk Analysis")
@@ -126,7 +134,7 @@ if st.button("Detect Spam 🔍", use_container_width=True):
                 elif risk == "Medium":
                     st.warning(f"**{url}** - Risk Level: **Medium** ⚠️")
                 else:
-                    st.success(f"**{url}** - Risk Level: **Low** ✅")
+                    st.success(f"**{url}** - Risk Level: **Safe** ✅")
                     
                 if analysis['warnings']:
                     st.markdown("**Warnings:**")

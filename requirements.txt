@@ -8,3 +8,5 @@ streamlit
 fastapi[standard]
 uvicorn
 pydantic
+requests
+joblib
